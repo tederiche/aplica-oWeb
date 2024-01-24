@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem vindo APP</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/frases.js"></script>
+    
+</head> 
+<body>
+    <header class="cabecalho">
+        <div class="menuDiv">
+            <button id="btnAdmin" class="btnAdmin">Admin</button>
+            <button id="btnVendedor" class="btnAdmin">Vendedor</button>
+           
+        </div>
+    </header>
+    <main class="conteudo">
+        <p class="conteudoBemVindo">BEM VINDO</p>
+        <div class="mainConteudo">
+           <p id="paragrafoTrabalho" class="frases"></p>
+           <br>
+           <br>
+           <p id="paragrafoObjetivos" class="frases"></p>
+        </div>
+    </main>
+    <footer class="rodape">
+        <button class="btnRodape">Help</button>
+        <button class="btnRodape">FAQ</button>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnAdmin = document.getElementById('btnAdmin');
+    
+            if (btnAdmin) {
+                btnAdmin.onclick = function () {
+                    window.location.href = 'http://localhost:3001/pesquisa.html';
+                };
+            } else {
+                console.error('Elemento com ID "btnAdmin" não encontrado.');
+            }
+    
+            const btnVendedor = document.getElementById('btnVendedor')
+    
+            if (btnVendedor) {
+                btnVendedor.onclick = function () {
+                    window.location.href = 'http://localhost:3002/vendas.html';
+                };
+            } else {
+                console.error('Elemento com ID "btnVendedor" não encontrado.');
+            }
+        });
+    </script>
+    
+</body>
+</html>

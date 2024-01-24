@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #4d4b53;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Adicionado para consistência na fonte */
+}
+
+.titulo {
+    text-align: center; /* Centraliza o texto */
+    color: #d8d8d8;
+}
+
+.formulario {
+    width: 80vw; /* Usando porcentagem da largura da viewport */
+    max-width: 400px; /* Limita a largura máxima */
+    margin: 15vh auto; /* Centraliza vertical e horizontalmente */
+    background-color: #d4d4d4;
+    border-radius: 5px;
+    padding: 20px; /* Adicionado espaço interno */
+}
+
+.labForm {
+    font-size: large;
+}
+
+.inputCID {
+    width: calc(100% - 10px); /* Ocupa 100% menos a largura das bordas */
+    height: 15px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #000000; /* Adiciona borda inferior */
+    outline: none;
+    margin-top: 10px; /* Espaçamento superior */
+    box-sizing: border-box; /* Mantém a largura total incluindo as bordas */
+}
+
+.btnCID {
+    width: 100%;
+    height: 50px;
+    background-color: #54853d;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    margin-top: 20px; /* Espaçamento superior */
+    transition: 0.5s;
+}
+
+.tltForm {
+    text-align: center; /* Centraliza o texto */
+    color: #4c267c;
+}
+
+.btnCID:hover {
+    background-color: white;
+    color: #54853d;
+    transition: 0.5s;
+}
+
+.CID10,
+.CIDTIPO,
+.nomedoArquivo {
+    width: 100%; /* Ocupa 100% da largura disponível */
+    margin-top: 10px; /* Espaçamento superior */
+}
+.btnAdmin{
+    position: relative;
+    background-color: rgba(154, 38, 217, 0.585);
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+    height: 35px;
+    left: 78vw;
+    top: 15%;
+}
+.menuDiv{
+    background-color: rgba(240, 248, 255, 0.689);
+    height: 50px;
+}
+.conteudo{
+    height: 102vh;
+    background-color: #4c267c;
+    text-align: center;
+}
+.mainConteudo{
+    position: relative;
+    text-align: justify, center;
+    background-color: #ffffff;
+    width: 50%;
+    height: 80vh;
+    left: 25vw;
+    top: 6vh;
+    border-radius: 9px;
+
+}
+.mainConteudoForm{
+    position: relative;
+    text-align: justify;
+    background-color: #ffffff;
+    width: 50%;
+    left: 25vw;
+    top: 1vh;
+    border-radius: 9px;
+    padding: 5px;
+}
+.conteudoBemVindo{
+    text-align: center;
+    color: #ffffff;
+    left: 37vw;
+    top: 6vh;
+    font-size: 3vw;
+}
+.frases{
+    position: relative;
+    font-size: 2vw;
+    top: 15vh;
+    font-family: 'Times New Roman', Times, serif;
+    color: goldenrod;
+}
+.rodape{
+    position: relative;
+    height: 10vh ;
+    display: block;
+}
+.btnRodape{
+    position: relative;
+    background-color: transparent;
+    color: white;
+    border: none;
+    width: 10vw;
+    top: 3vh;
+    left: 6vw;
+}
+.lbVendas{
+    display: block;
+    margin-left: 2%;
+}
+.inputForm{
+    width: 95%;
+    height: 25px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    margin-left: 2%;
+}
+.observacaoVendas{
+    width: 95%;
+    height: 15vh;
+    margin-left: 2%;
+    
+}
+.btnEnviarVendas{
+    background-color: #158515;
+    color: white;
+    border: none;
+    width: 100%;
+    height: 7vh;
+    border-radius: 5px;
+}
+.formTitulo{
+    text-align: center;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem vindo APP</title>
+    <link rel="stylesheet" href="style.css">
+</head> 
+<body>
+    <header class="cabecalho">
+        <div class="menuDiv">
+            <button id="btnAdmin" class="btnAdmin">Admin</button>
+            <button class="btnAdmin">Vendedor</button>
+        </div>
+    </header>
+    <main class="conteudo">
+        <div class="mainConteudoForm">
+            <h2 class="formTitulo">Clientes</h2>
+
+            <form action="/formVendas" method="post" class="formularioVendas">
+                <label class="lbVendas" for="data">DATA:</label>
+                <input class="inputForm" type="date" id="data" name="data" required><br>
+            
+                <label class="lbVendas" for="nomeCliente">NOME CLIENTE:</label>
+                <input class="inputForm" type="text" id="nomeCliente" name="nomeCliente" required><br>
+            
+                <label class="lbVendas" for="cpfCliente">CPF DO CLIENTE:</label>
+                <input class="inputForm" type="text" id="cpfCliente" name="cpfCliente" required><br>
+            
+                <label class="lbVendas" for="cidades">CIDADES:</label>
+                <input class="inputForm" type="text" id="cidades" name="cidades" required><br>
+            
+                <label class="lbVendas" for="operador">OPERADOR:</label>
+                <input class="inputForm" type="text" id="operador" name="operador" required><br>
+            
+                <label class="lbVendas"  for="produto">PRODUTO:</label>
+                <input class="inputForm" type="text" id="produto" name="produto" required><br>
+            
+                <label class="lbVendas" for="obs">OBS:</label>
+                <input class="inputForm" type="text" id="obs" name="obs"><br>
+            
+                <label>Método de Contato:</label><br>
+                <input type="radio" id="clienteSistema" name="contato" value="clienteSistema">
+                <label for="clienteSistema">Cliente Sistema</label><br>
+            
+                <input type="radio" id="pessoalmente" name="contato" value="pessoalmente">
+                <label for="pessoalmente">Pessoalmente</label><br>
+            
+                <input type="radio" id="whatsapp" name="contato" value="whatsapp">
+                <label for="whatsapp">Whatsapp</label><br>
+            
+                <label for="observacao">Observação:</label><br>
+                <textarea class="observacaoVendas" id="observacao" name="observacao" rows="4" cols="50"></textarea><br>
+                
+                <label> Fechamento de Contrato </label><br>
+                <input type="radio" name="fechamentoContrato" id="concluido" value="true">
+                <label for="concluido">Concluído</label><br>
+                <input type="radio" name="fechamentoContrato" id="naoConcluido" value="false">
+                <label for="naoConcluido">Não Fechado</label><br>
+                <button class="btnEnviarVendas">Enviar</button>
+            </form>
+        </div>
+    </main>
+    <footer class="rodape">
+        <button class="btnRodape">Help</button>
+        <button class="btnRodape">FAQ</button>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem vindo APP</title>
+    <link rel="stylesheet" href="style.css">
+</head> 
+<body>
+    <header class="cabecalho">
+        <div class="menuDiv">
+            
+        </div>
+    </header>
+    <main class="conteudo">
+        <div class="mainConteudoForm">
+            <h2 class="formTitulo">Clientes</h2>
+
+            <form action="/processar-venda" method="post" class="formularioVendas">
+                
+                <label class="lbVendas" for="data">DATA:</label>
+                <input class="inputForm" type="datetime-local" id="data" name="data" required><br>
+            
+                <label class="lbVendas" for="nomeCliente">NOME CLIENTE:</label>
+                <input class="inputForm" type="text" id="nomeCliente" name="nomeCliente" required><br>
+            
+                <label class="lbVendas" for="cpfCliente">CPF DO CLIENTE:</label>
+                <input class="inputForm" type="text" id="cpfCliente" name="cpfCliente" required><br>
+
+                <input type="hidden" id="cpfValido" name="cpfValido" value="">
+            
+                <label class="lbVendas" for="cidades">CIDADES:</label>
+                <input class="inputForm" type="text" id="cidades" name="cidades" required><br>
+            
+                <label class="lbVendas" for="operador">OPERADOR:</label>
+                <input class="inputForm" type="text" id="operador" name="operador" required><br>
+            
+                <label class="lbVendas"  for="produto">PRODUTO:</label>
+                <input class="inputForm" type="text" id="produto" name="produto" required><br>
+            
+                <label class="lbVendas" for="obs">OBS:</label>
+                <input class="inputForm" type="text" id="obs" name="obs"><br>
+            
+                <label>Método de Contato:</label><br>
+                <input type="radio" id="clienteSistema" name="contato" value="clienteSistema">
+                <label for="clienteSistema">Cliente Sistema</label><br>
+            
+                <input type="radio" id="pessoalmente" name="contato" value="pessoalmente">
+                <label for="pessoalmente">Pessoalmente</label><br>
+            
+                <input type="radio" id="whatsapp" name="contato" value="whatsapp">
+                <label for="whatsapp">Whatsapp</label><br>
+            
+                <label for="observacao">Observação:</label><br>
+                <textarea class="observacaoVendas" id="observacao" name="observacao" rows="4" cols="50"></textarea><br>
+                
+                <label> Fechamento de Contrato </label><br>
+                <input type="radio" name="fechamentoContrato" id="concluido" value="true">
+                <label for="concluido">Concluído</label><br>
+                <input type="radio" name="fechamentoContrato" id="naoConcluido" value="false">
+                <label for="naoConcluido">Não Fechado</label><br>
+                <button class="btnEnviarVendas" onclick="handleFormSubmit()">Enviar</button>
+            </form>
+        </div>
+    </main>
+    <footer class="rodape">
+        <button class="btnRodape">Help</button>
+        <button class="btnRodape">FAQ</button>
+    </footer>
+
+
+    <script>
+        // Função para limpar os campos do formulário
+        function limparCampos() {
+            document.getElementById('data').value = '';
+            document.getElementById('nomeCliente').value = '';
+            document.getElementById('cpfCliente').value = '';
+            document.getElementById('cidades').value = '';
+            document.getElementById('produto').value = '';
+            document.getElementById('obs').value = '';
+            document.getElementById('clienteSistema').checked = false;
+            document.getElementById('pessoalmente').checked = false;
+            document.getElementById('whatsapp').checked = false;
+            document.getElementById('observacao').value = '';
+            document.getElementById('concluido').checked = false;
+            document.getElementById('naoConcluido').checked = false;
+        }
+    
+        function validarCPF(cpf) {
+            // Remover caracteres não numéricos
+            cpf = cpf.replace(/\D/g, '');
+
+            // Verificar se o CPF tem 11 dígitos
+            if (cpf.length !== 11) {
+                return false;
+            }
+
+            // Calcular o primeiro dígito verificador
+            let soma = 0;
+            for (let i = 10; i >= 2; i--) {
+                soma += parseInt(cpf.charAt(10 - i)) * i;
+            }
+            let resto = (soma * 10) % 11;
+            let digitoVerificador1 = resto === 10 || resto === 11 ? 0 : resto;
+
+            // Calcular o segundo dígito verificador
+            soma = 0;
+            for (let i = 11; i >= 2; i--) {
+                soma += parseInt(cpf.charAt(11 - i)) * i;
+            }
+            resto = (soma * 10) % 11;
+            let digitoVerificador2 = resto === 10 || resto === 11 ? 0 : resto;
+
+            // Verificar se os dígitos verificadores estão corretos
+            return parseInt(cpf.charAt(9)) === digitoVerificador1 && parseInt(cpf.charAt(10)) === digitoVerificador2;
+        }
+
+    
+        async function handleFormSubmit() {
+        const cpfInput = document.getElementById('cpfCliente');
+        const campoHiddenInput = document.getElementById('cpfValido'); // Substitua pelo id correto do campo hidden
+        const cpf = cpfInput.value;
+        const campoHidden = campoHiddenInput.value;
+
+        if (validarCPF(cpf)) {
+            try {
+                // Adiciona os valores aos campos do objeto resposta
+                const resposta = {
+                    data: document.getElementById('data').value,
+                    nomeCliente: document.getElementById('nomeCliente').value,
+                    cpfCliente: cpf,
+                    cidades: document.getElementById('cidades').value,
+                    operador: document.getElementById('operador').value,
+                    produto: document.getElementById('produto').value,
+                    obs: document.getElementById('obs').value,
+                    contato: document.querySelector('input[name="contato"]:checked').value,
+                    observacao: document.getElementById('observacao').value,
+                    fechamentoContrato: document.querySelector('input[name="fechamentoContrato"]:checked').value === 'true',
+                    campoHidden: campoHidden, // Adiciona o valor do campo hidden
+                };
+
+                // Chama a função para salvar resposta
+                await salvarResposta(resposta, resposta.fechamentoContrato);
+
+                // Redireciona após 1 segundo
+                setTimeout(() => {
+                    window.location.href = '/vendas';
+
+                    // Chama a função para limpar campos após o redirecionamento
+                    limparCampos();
+                }, 1000);
+            } catch (error) {
+                console.error('Erro ao enviar o formulário:', error);
+            }
+        } else {
+            // CPF inválido, exibir mensagem de erro ou tomar a ação apropriada
+            alert('CPF inválido. Por favor, insira um CPF válido.');
+        }
+        }
+
+        // Adiciona um ouvinte de evento ao campo de CPF
+        document.getElementById('cpfCliente').addEventListener('input', function () {
+        const cpfInput = document.getElementById('cpfCliente');
+        const btnEnviar = document.getElementById('btnEnviarVendas'); // Corrija o id do botão aqui
+        // Habilita o botão se o CPF for válido, caso contrário, desabilita
+        btnEnviar.disabled = !validarCPF(cpfInput.value);
+        });
+    </script>
+    
+      
+</body>
+</html>

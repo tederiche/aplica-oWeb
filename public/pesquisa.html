@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Pesquisa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="titulo">Formulário de Pesquisa</h1>
+
+    <form id="pesquisaForm" class="formulario">
+        <h1 class="tltForm">Gerador de Leads</h1>
+
+        <label for="valorCid10" class="labForm">CID_10:</label>
+        <div id="selectContainerCID10"></div>
+        <br>
+
+        <label for="valorCidTipo" class="labForm">CID_TIPO:</label>
+        <div id="selectContainerCIDTipo"></div>
+        <br>
+
+        <label for="nomeArquivo" class="labForm">Nome do Arquivo:</label>
+        <input type="text" id="nomeArquivo" class="inputCID nomedoArquivo" placeholder="M251" name="nomeArquivo" required>
+
+        <button type="submit" class="btnCID">Realizar Pesquisa</button>
+    </form>
+
+    <script>
+        async function carregarOpcoesCID10() {
+            const response = await fetch('valoresUnicosCID10.json');
+            const data = await response.json();
+
+            // Organizar o array em ordem alfabética
+            data.sort();
+
+            const selectContainerCID10 = document.getElementById('selectContainerCID10');
+
+            // Criar um <select>
+            const selectCID10 = document.createElement('select');
+            selectCID10.className = "inputCID CID10";
+            selectCID10.name = "valorCid10";
+
+            // Criar opções para cada valor no arquivo JSON
+            data.forEach((valor) => {
+                const option = document.createElement('option');
+                option.value = valor;
+                option.textContent = valor;
+                selectCID10.appendChild(option);
+            });
+
+            // Adicionar o <select> ao contêiner
+            selectContainerCID10.appendChild(selectCID10);
+        }
+
+        async function carregarOpcoesCIDTIPO() {
+            const response = await fetch('valoresUnicosCIDTIPO.json');
+            const data = await response.json();
+
+            // Organizar o array em ordem alfabética
+            data.sort();
+
+            const selectContainerCIDTipo = document.getElementById('selectContainerCIDTipo');
+
+            // Criar um <select>
+            const selectCIDTipo = document.createElement('select');
+            selectCIDTipo.className = "inputCID CIDTIPO";
+            selectCIDTipo.name = "valorCidTipo";
+
+            // Criar opções para cada valor no arquivo JSON
+            data.forEach((valor) => {
+                const option = document.createElement('option');
+                option.value = valor;
+                option.textContent = valor;
+                selectCIDTipo.appendChild(option);
+            });
+
+            // Adicionar o <select> ao contêiner
+            selectContainerCIDTipo.appendChild(selectCIDTipo);
+        }
+
+        document.getElementById('pesquisaForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            // Obter o valor selecionado do <select> para CID_10
+            const selectElementCID10 = document.querySelector('.inputCID.CID10');
+            const valorCid10 = selectElementCID10.value;
+
+            // Obter o valor selecionado do <select> para CID_TIPO
+            const selectElementCIDTipo = document.querySelector('.inputCID.CIDTIPO');
+            const valorCidTipo = selectElementCIDTipo.value;
+
+            const nomeArquivo = document.getElementById('nomeArquivo').value;
+
+            try {
+                const response = await fetch('http://localhost:3001/pesquisa', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ valorCid10, valorCidTipo, nomeArquivo }),
+                });
+
+                const data = await response.json();
+                console.log('Resultados da pesquisa:', data.resultados);
+            } catch (error) {
+                console.error('Erro ao realizar pesquisa:', error);
+            }
+        });
+
+        // Chamar a função para carregar as opções do CID_10
+        carregarOpcoesCID10();
+
+        // Chamar a função para carregar as opções do CID_TIPO
+        carregarOpcoesCIDTIPO();
+    </script>
+</body>
+</html>
